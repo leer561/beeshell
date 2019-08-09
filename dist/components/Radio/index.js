@@ -1,0 +1,5 @@
+import Radio from './Radio';
+import RadioItem from './RadioItem';
+Radio.Item = RadioItem;
+export { Radio };
+//# sourceMappingURL=index.js.map

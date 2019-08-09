@@ -1,0 +1,10 @@
+import { StyleSheet } from 'react-native';
+export default StyleSheet.create({
+    wrapper: {
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+});
+//# sourceMappingURL=styles.js.map

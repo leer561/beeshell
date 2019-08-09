@@ -1,0 +1,39 @@
+import { Component, ReactElement } from 'react';
+import { ViewStyle } from 'react-native';
+declare enum ICON_POSITION {
+    LEFT = "left",
+    RIGHT = "right"
+}
+export interface CheckboxItemProps {
+    style?: ViewStyle;
+    label?: string;
+    value?: any | null | undefined;
+    disabled?: boolean;
+    checked?: boolean;
+    iconPosition?: 'left' | 'right';
+    onChange?: Function;
+    checkedIcon?: ReactElement<any>;
+    uncheckedIcon?: ReactElement<any>;
+    renderItem?: Function;
+}
+export declare class CheckboxItem<T extends CheckboxItemProps, P> extends Component<T, any> {
+    static displayName: string;
+    static defaultProps: {
+        style: {};
+        label: string;
+        value: any;
+        disabled: boolean;
+        checked: boolean;
+        iconPosition: ICON_POSITION;
+        checkedIcon: any;
+    };
+    animated: any;
+    constructor(props: any);
+    componentDidMount(): void;
+    componentWillReceiveProps(nextProps: any): void;
+    handlePress: () => void;
+    renderIcon: () => JSX.Element;
+    renderLabel(): JSX.Element;
+    render(): JSX.Element;
+}
+export {};
