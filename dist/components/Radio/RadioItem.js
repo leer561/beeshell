@@ -10,7 +10,7 @@ export default class RadioItem extends Component {
     constructor(props) {
         super(props);
         this.handlePress = () => {
-            if (this.props.disabled) {
+            if (this.props.disabled || (this.context.editable===false)) {
                 return;
             }
             const value = this.props.value;
@@ -58,7 +58,7 @@ export default class RadioItem extends Component {
     render() {
         const { testID, checked, iconPosition, style, renderItem } = this.props;
         let {disabled} = this.props;
-        disabled = disabled || !this.context.editable
+        disabled = disabled || (this.context.editable===false)
         return (React.createElement(TouchableOpacity, { testID: testID, style: [
                 style,
                 {
