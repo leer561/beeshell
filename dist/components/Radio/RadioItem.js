@@ -4,7 +4,9 @@ import styles from './styles';
 import variables from '../../common/styles/variables';
 import styleUtils from '../../common/styles/utils';
 import { FadeAnimated } from '../../common/animations';
+import {FormContext} from '../Form/form-context'
 export default class RadioItem extends Component {
+	static contextType = FormContext;
     constructor(props) {
         super(props);
         this.handlePress = () => {
@@ -54,7 +56,9 @@ export default class RadioItem extends Component {
         }
     }
     render() {
-        const { testID, disabled, checked, iconPosition, style, renderItem } = this.props;
+        const { testID, checked, iconPosition, style, renderItem } = this.props;
+        let {disabled} = this.props;
+        disabled = disabled || !this.context.editable
         return (React.createElement(TouchableOpacity, { testID: testID, style: [
                 style,
                 {

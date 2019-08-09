@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import variables from '../../common/styles/variables';
 import switchStyles from './styles';
 import { StyleSheet, Animated, Easing, PanResponder, Platform } from 'react-native';
+import {FormContext} from '../Form/form-context'
 const styles = StyleSheet.create(switchStyles);
 const SCALE = 6 / 5;
 const borderColor = '#c5c5c5';
@@ -14,6 +15,7 @@ const rockerSizeMap = {
     'sm': 20
 };
 export class Switch extends Component {
+    static contextType = FormContext;
     constructor(props) {
         super(props);
         this.onPanResponderGrant = () => {
@@ -165,7 +167,8 @@ export class Switch extends Component {
         });
     }
     render() {
-        const { disabled } = this.props;
+        let {disabled} = this.props;
+        disabled = disabled || !this.context.editable
         const elevation = disabled ? 1 : 5;
         return (React.createElement(Animated.View, Object.assign({ testID: this.props.testID }, this.panResponder.panHandlers, { style: [styles.container, this.getContainBaseStyle(), this.props.style] }),
             React.createElement(Animated.View, { style: [this.getRockerBaseStyle(), {
