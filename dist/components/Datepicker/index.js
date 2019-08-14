@@ -27,7 +27,7 @@ export class Datepicker extends React.Component {
 				year = list[0][value[0]];
 				month = list[1][value[1]];
 			}
-			days = this.getDays(year, month);
+			days = this.days ? this.days : this.getDays(year, month);
 			newList[2] = days;
 			day = list[2][value[2]];
 			if (days.indexOf(day) === -1) {
@@ -76,6 +76,7 @@ export class Datepicker extends React.Component {
 			// 判断当前天数
 			if ((input[1] + 1) == endMonth) {
 				days = days.filter(day => day <= endDay)
+				this.days = days
 			}
 		}
 		const list = [years, months, days];
@@ -144,7 +145,7 @@ export class Datepicker extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.date !== this.props) {
+		if (nextProps.date !== this.props.date) {
 			this.setState({
 				...this.initialize(nextProps)
 			});
