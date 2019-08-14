@@ -4,6 +4,7 @@ import { ScrollpickerProps } from '../Scrollpicker';
 export interface DatepickerProps extends ScrollpickerProps {
     startYear?: number;
     proportion?: number[];
+    endDate?:string;
     numberOfYears?: number;
     date?: string | null | undefined;
     onChange?: Function;
@@ -13,6 +14,7 @@ export declare class Datepicker extends React.Component<DatepickerProps, any> {
         startYear: number;
         numberOfYears: number;
         date: string;
+        endDate:string;
         onChange: typeof noop;
         proportion: number[];
     };
