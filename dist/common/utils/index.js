@@ -1,6 +1,6 @@
-export function range(length) {
+export function range(length,min=0) {
     const ret = [];
-    for (let i = 0; i < length; i++) {
+    for (let i = min; i < length; i++) {
         ret.push(i);
     }
     return ret;
