@@ -14,7 +14,6 @@ export class Timepicker extends React.Component {
 				return list[valueIndex][valueItem].value;
 			});
 			this.input = ret
-			console.log('this.input', this.input)
 			this.props.onChange && this.props.onChange(ret.join(':'));
 		};
 		this.state = {
@@ -23,8 +22,12 @@ export class Timepicker extends React.Component {
 	}
 
 	init(props, input) {
-		let {hourStep, minuteStep, secondStep, value, showTime, startTime, endTime} = props;
+		let {hourStep, minuteStep, secondStep, value, showTime, startTime, endTime, disableHours} = props;
 
+		let removeHours = {}
+		if (disableHours && disableHours.length) {
+			disableHours.forEach(item => removeHours[item] = true)
+		}
 		// 获取最新的值
 		if (input) {
 			value = input
@@ -52,12 +55,16 @@ export class Timepicker extends React.Component {
 		// 获取时间显示列数
 		const show = showTime.split(':')
 
-		const hours = range(hourSum / hourStep, start[0]).map((item) => {
+		const hoursList = range(hourSum / hourStep, start[0])
+		// 过滤
+		let hours = []
+		hoursList.forEach((item) => {
+			if (removeHours[item]) return;
 			item = convert2Digit(item * hourStep);
-			return {
+			hours.push({
 				label: `${item} 时`,
 				value: item
-			};
+			})
 		});
 
 		const list = [hours];
@@ -67,7 +74,6 @@ export class Timepicker extends React.Component {
 		if (showLength >= 2) {
 			if (value[0] == end[0]) {
 				minuteSum = Number(end[1]) + 1
-				console.log('minuteSum', minuteSum)
 			}
 			let startMinute = 0
 			if (value[0] == start[0]) {
