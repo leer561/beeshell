@@ -70,11 +70,11 @@ export class Datepicker extends React.Component {
 			const [endYear, endMonth, endDay] = endDateArray
 			years = years.filter(year => year <= endYear)
 			// 判断月份是否跨年
-			if (input[0] == endYear) {
+			if (input && input[0] == endYear) {
 				months = months.filter(month => month <= endMonth)
 			}
 			// 判断当前天数
-			if ((input[1] + 1) == endMonth) {
+			if (input && (input[1] + 1) == endMonth) {
 				days = days.filter(day => day <= endDay)
 				this.days = days
 			}
