@@ -32,7 +32,10 @@ export class Timepicker extends React.Component {
 		if (input) {
 			value = input
 		} else {
-			value = value.split(':')
+			if (typeof (value) === 'string') {
+				value = value.split(':')
+			}
+
 		}
 
 		// 设置最大最小值
