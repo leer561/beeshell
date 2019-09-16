@@ -47,7 +47,14 @@ export class Datepicker extends React.Component {
 	}
 
 	initialize(props) {
-		let {startYear, numberOfYears, date, endDate} = props;
+		let {startYear, numberOfYears, date, endDate, showPastDate} = props;
+
+		// 当前年月日
+		const d = new Date()
+		const currentYear = d.getFullYear()
+		const currentMonth = d.getMonth() + 1
+		const currentDay = d.getUTCDate()
+
 		let years = range(numberOfYears).map((item, index) => {
 			return Number(startYear) + index;
 		});
@@ -64,6 +71,17 @@ export class Datepicker extends React.Component {
 		const month = date.getMonth() + 1;
 		const day = date.getDate();
 		let days = this.getDays(year, month);
+		this.days = days
+
+		// 如果是当前年份过滤掉之前月份
+		if (year == currentYear && !showPastDate) {
+			months = months.filter(month => month >= currentMonth)
+			if (month == currentMonth) {
+				days = days.filter(day => day >= currentDay)
+				this.days = days
+			}
+		}
+
 		// endDate调整截止时间
 		if (endDate !== undefined) {
 			const endDateArray = endDate.split('-')
@@ -194,7 +212,7 @@ export class Datepicker extends React.Component {
 }
 
 Datepicker.defaultProps = {
-	startYear: 2019,
+	startYear: (new Date()).getFullYear(),
 	numberOfYears: 10,
 	date: 'undefined',
 	onChange: noop,
