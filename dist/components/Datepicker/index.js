@@ -67,12 +67,12 @@ export class Datepicker extends React.Component {
 		} else {
 			date = new Date(input[0], input[1], input[2]);
 		}
+
 		const year = date.getFullYear();
-		const month = date.getMonth() + 1;
+		let month = date.getMonth() + 1;
 		const day = date.getDate();
 		let days = this.getDays(year, month);
 		this.days = days
-
 		// 如果是当前年份过滤掉之前月份
 		if (year == currentYear && !showPastDate) {
 			months = months.filter(month => month >= currentMonth)
@@ -87,9 +87,13 @@ export class Datepicker extends React.Component {
 			const endDateArray = endDate.split('-')
 			const [endYear, endMonth, endDay] = endDateArray
 			years = years.filter(year => year <= endYear)
-			// 判断月份是否跨年
+			// 如果未跨年
 			if (input && input[0] == endYear) {
 				months = months.filter(month => month <= endMonth)
+				// 并且 当前年份不是endYear 则是跨年
+				if(currentYear!=endYear){
+					month = months[0]
+				}
 			}
 			// 判断当前天数
 			if (input && (input[1] + 1) == endMonth) {
@@ -97,7 +101,7 @@ export class Datepicker extends React.Component {
 				this.days = days
 			}
 		}
-		const list = [years, months, days];
+		const list = [years, months, days]
 		const value = [
 			years.indexOf(year),
 			months.indexOf(month),
